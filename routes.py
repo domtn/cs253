@@ -3,6 +3,7 @@ from unit1 import dateform
 from unit2 import rot13
 from unit2 import signup
 from unit3 import asciichan
+from unit3 import blog
 from unit4 import play
 
 form="""
@@ -29,5 +30,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/unit2/signup', signup.MainPage),
                                ('/unit2/welcome', signup.WelcomePage),
                                ('/unit3/asciichan', asciichan.MainPage),
+                               ('/unit3/blog', blog.MainPage),
+                               ('/unit3/blog/newpost', blog.NewPost),
                                ('/unit4/play', play.MainPage),
                                ], debug=True)
