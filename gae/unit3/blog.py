@@ -1,3 +1,16 @@
+"""
+Unit 3 Homework
+
+Build a blog
+
+- Front page that lists entries
+
+- Form to submit new entries
+
+- Permalink page for entries
+"""
+
+
 import os
 import webapp2
 import jinja2
