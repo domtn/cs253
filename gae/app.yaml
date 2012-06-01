@@ -9,5 +9,9 @@ libraries:
 
 
 handlers:
+
+- url: /stylesheets
+  static_dir: stylesheets
+  
 - url: /.*
   script: routes.app
