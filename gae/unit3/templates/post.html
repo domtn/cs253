@@ -2,14 +2,20 @@
 
 <html>
   <head>
-    <title>Blog - posts</title>
+    <title>Blog - {{post.subject}}</title>
+
+
   </head>
   <style type="text/css">
     body{
       font-family: sans-serif;
-      width: 800px;
+      width: 960px;
       margin: 0 auto;
       padding: 10px;
+    }
+    
+    .error{
+      color: red;
     }
 
     hr {
@@ -19,12 +25,13 @@
     .post {
       margin-top: 20px;
       padding-bottom: 40px;
+      width:100%;
     }
 
     .post-subject {
       font-weight: bold;
       font-size: 20px;
-      position: absolute;
+      width:60%;
     }
 
     .post-updated {
@@ -34,22 +41,21 @@
     }
 
     .post-content {
-      clear: both;
-      padding-top: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
       font-size: 17px;
     }
   </style>
   <body>
     <h1>Blog</h1>
-    <a href="blog/newpost">New Post</a>
-    {% for post in posts %}
-      <div class="post">
+    <a href="/unit3/blog">All</a>
+    <div class="error">{{error}}</div>
+    <div class="post">
+        <div class="post-updated">Last updated: {{post.lastUpdated}}</div>
         <div class="post-subject">{{post.subject}}</div>
-        <span class="post-updated">Last updated: {{post.lastUpdated}}</span>
-        <pre class="post-content">{{post.content}}</pre>
+        <div class="post-content">{{post.content}}</div>
         <a href="{{post.permalink}}">Permanent Link</a>
-      </div>
-    {% endfor %}
+    </div>
     <hr>
   </body>
 
