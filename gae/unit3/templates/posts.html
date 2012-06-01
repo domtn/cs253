@@ -12,6 +12,11 @@
       padding: 10px;
     }
 
+    .nav {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    
     hr {
       margin: 20px auto;
     }
@@ -42,7 +47,7 @@
   </style>
   <body>
     <h1>Blog</h1>
-    <a href="/unit3/blog/newpost">New Post</a>
+    <div class="nav"><a href="/unit3/blog/newpost">New Post</a></div>
     {% for post in posts %}
       <div class="post">
         <div class="post-updated">Last updated: {{post.lastUpdated}}</div>

@@ -47,10 +47,10 @@ class Posts(Handler):
 class Post(Handler):
   def render_post(self, post_id=""):
     post = BlogPost.get_by_id(long(post_id))
-    post.permalink = "/unit3/blog/" + str(post.key().id())
-    post.lastUpdated = post.created.strftime(format)  
-    
+
     if post:
+      post.permalink = "/unit3/blog/" + str(post.key().id())
+      post.lastUpdated = post.created.strftime(format)
       self.render("post.html", post=post)
     else:
       error = "Could not find the post you wanted to read!"

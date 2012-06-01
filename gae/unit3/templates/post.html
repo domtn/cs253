@@ -13,9 +13,16 @@
       margin: 0 auto;
       padding: 10px;
     }
-    
+
+    .nav {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
     .error{
+      margin-top: 20px;
       color: red;
+      margin-bottom: 20px;
     }
 
     hr {
@@ -48,14 +55,18 @@
   </style>
   <body>
     <h1>Blog</h1>
-    <a href="/unit3/blog">All</a>
-    <div class="error">{{error}}</div>
+    <div class="nav"><a href="/unit3/blog">All Posts</a></div>
+    
+    {% if error %}
+      <div class="error">{{error}}</div>
+    {% else %}
     <div class="post">
         <div class="post-updated">Last updated: {{post.lastUpdated}}</div>
         <div class="post-subject">{{post.subject}}</div>
         <div class="post-content">{{post.content}}</div>
         <a href="{{post.permalink}}">Permanent Link</a>
     </div>
+    {% endif %}
     <hr>
   </body>
 
