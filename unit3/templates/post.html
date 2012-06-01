@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Blog - {{post.subject}}</title>
+
+
+  </head>
+  <style type="text/css">
+    body{
+      font-family: sans-serif;
+      width: 800px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+    
+    .error{
+      color: red;
+    }
+
+    hr {
+      margin: 20px auto;
+    }
+
+    .post {
+      margin-top: 20px;
+      padding-bottom: 40px;
+    }
+
+    .post-subject {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .post-content {
+      margin: 0;
+      font-size: 17px;
+    }
+  </style>
+  <body>
+    <h1>Blog</h1>
+    <div class="error">{{error}}</div>
+    <div class="post">
+      <div class="post-subject">{{post.subject}}</div>
+      <pre class="post-content">{{post.content}}</pre>
+    </div>
+    <hr>
+  </body>
+
+
+</html>

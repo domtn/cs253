@@ -2,9 +2,7 @@
 
 <html>
   <head>
-    <title>/Blog - posts/</title>
-
-
+    <title>Blog - posts</title>
   </head>
   <style type="text/css">
     body{
@@ -13,7 +11,7 @@
       margin: 0 auto;
       padding: 10px;
     }
- 
+
     hr {
       margin: 20px auto;
     }
@@ -26,19 +24,30 @@
     .post-subject {
       font-weight: bold;
       font-size: 20px;
+      position: absolute;
+    }
+
+    .post-updated {
+      font-style: italic;
+      font-size: 14px;
+      float: right;
     }
 
     .post-content {
-      margin: 0;
+      clear: both;
+      padding-top: 20px;
       font-size: 17px;
     }
   </style>
   <body>
     <h1>Blog</h1>
+    <a href="blog/newpost">New Post</a>
     {% for post in posts %}
       <div class="post">
         <div class="post-subject">{{post.subject}}</div>
+        <span class="post-updated">Last updated: {{post.lastUpdated}}</span>
         <pre class="post-content">{{post.content}}</pre>
+        <a href="{{post.permalink}}">Permanent Link</a>
       </div>
     {% endfor %}
     <hr>

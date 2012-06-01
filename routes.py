@@ -23,14 +23,16 @@ class MainPage(webapp2.RequestHandler):
   def post(self):
     self.write_form()
 
-app = webapp2.WSGIApplication([('/', MainPage),
-							   ('/unit1/dateform', dateform.MainPage),
-                               ('/unit1/thanks', dateform.ThanksPage), 
-                               ('/unit2/rot13', rot13.MainPage),
-                               ('/unit2/signup', signup.MainPage),
-                               ('/unit2/welcome', signup.WelcomePage),
-                               ('/unit3/asciichan', asciichan.MainPage),
-                               ('/unit3/blog', blog.MainPage),
-                               ('/unit3/blog/newpost', blog.NewPost),
-                               ('/unit4/play', play.MainPage),
+app = webapp2.WSGIApplication([
+                  webapp2.Route(r'/', handler=MainPage),
+                  webapp2.Route(r'/unit1/dateform', handler=dateform.MainPage),
+                  webapp2.Route(r'/unit1/thanks', handler=dateform.ThanksPage), 
+                  webapp2.Route(r'/unit2/rot13', handler=rot13.MainPage),
+                  webapp2.Route(r'/unit2/signup', handler=signup.MainPage),
+                  webapp2.Route(r'/unit2/welcome', handler=signup.WelcomePage),
+                  webapp2.Route(r'/unit3/asciichan', handler=asciichan.MainPage),
+                  webapp2.Route(r'/unit3/blog', handler=blog.Posts),
+                  webapp2.Route(r'/unit3/blog/newpost', handler=blog.NewPost),
+                  webapp2.Route(r'/unit3/blog/<post_id:\d+>', handler=blog.Post, name='post'),
+                  webapp2.Route(r'/unit4/play', handler=play.MainPage),
                                ], debug=True)
