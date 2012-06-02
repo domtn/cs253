@@ -1,6 +1,7 @@
 import hashlib
-
+import random
 import hmac
+import string
 
     
 SEPARATOR = "|"

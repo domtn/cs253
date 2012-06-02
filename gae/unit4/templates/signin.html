@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Authen - Sign in</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/authen.css" />
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form method="post">
+    <div class="error">{{err_signin}}</div>
+    <label>
+      <span class="title">Username</span>
+      <input type="text" name="username" value="{{username}}">
+      <span class="error">{{err_username}}</span>
+    </label>
+    <br>
+    <label>
+      <span class="title">Password</span>
+      <input type="password" name="password" value="{{password}}">
+      <span class="error">{{err_password}}</span>
+    </label>
+    <br>
+    <input type="submit">
+  </form>
+  </body>
+</html>

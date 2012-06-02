@@ -75,10 +75,10 @@ class MainPage(webapp2.RequestHandler):
     output_verify = input_verify
     output_email = html_util.escape_html(input_email)
 
-    if not signup_util.is_username_valid(input_username):
+    if not signuputil.is_username_valid(input_username):
       err_username = "Invalid username"
     
-    if not signup_util.is_password_valid(input_password):
+    if not signuputil.is_password_valid(input_password):
       err_password = "Invalid password"
       output_password = ""
       output_verify = ""
@@ -86,7 +86,7 @@ class MainPage(webapp2.RequestHandler):
     if input_password != input_verify:
       err_verify = "Does not match the password you entered"
 
-    if not signup_util.is_email_valid(input_email):
+    if not signuputil.is_email_valid(input_email):
       err_email = "Invalid email"
 
     if err_username == "" and \
@@ -108,7 +108,7 @@ class WelcomePage(webapp2.RequestHandler):
   
   def get(self):
     username = self.request.get('username')
-    if signup_util.is_username_valid(username):
+    if signuputil.is_username_valid(username):
       self.write_form(username)
     else:
       self.redirect('signup')
