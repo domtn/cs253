@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog - New post</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/blog_api.css" />
+  </head>
+  <body>
+    <h1>New Post</h1>
+    <div class="nav"><a href="/unit5/blog">All Posts</a></div>
+    <form method="post">
+      <label>
+        <div>subject</div>
+        <input type="text" name="subject" value={{subject}}>
+      </label>
+      
+      <label>
+        <div>content</div>
+        <textarea name="content">{{content}}</textarea>
+      </label>
+      <div class="error">{{error}}</div>
+
+      <input type="submit">
+    </form>
+  </body>
+
+
+</html>

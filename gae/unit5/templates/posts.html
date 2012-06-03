@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog - posts</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/blog_api.css" />
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <div class="nav"><a href="/unit5/blog/newpost">New Post</a></div>
+    {% for post in posts %}
+      <div class="post">
+        <div class="post-updated">Last updated: {{post.lastUpdated}}</div>
+        <div class="post-subject">{{post.subject}}</div>
+        <div class="post-content">{{post.content}}</div>
+        <a href="{{post.permalink}}">Permanent Link</a>
+      </div>
+    {% endfor %}
+    <hr>
+  </body>
+</html>

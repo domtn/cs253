@@ -13,7 +13,7 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
-APP_PATH = "/unit4/authen"
+APP_PATH = "/unit5/blog"
 CORE_PATH = "/welcome"
 
 class User(db.Model):
@@ -157,6 +157,7 @@ class LoginPage(Handler):
 class LogoutPage(Handler):
   def get(self):
     self.response.headers.add_header('Set-Cookie', 'user_id=;Path=/')
+    #self.response.headers.add_header('Set-Cookie', 'user_id=;')
     self.redirect(APP_PATH + "/signup")
 
 class WelcomePage(Handler):

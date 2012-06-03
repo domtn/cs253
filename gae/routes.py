@@ -6,6 +6,9 @@ from unit3 import asciichan
 from unit3 import blog
 from unit4 import play
 from unit4 import authen
+from unit5 import asciichan2
+from unit5 import blog_api
+from unit5 import blog_authen
 
 form="""
 <h2>Welcome to Web Application Engineering</h2>
@@ -40,4 +43,12 @@ app = webapp2.WSGIApplication([
                   webapp2.Route(r'/unit4/authen/login', handler=authen.LoginPage),
                   webapp2.Route(r'/unit4/authen/logout', handler=authen.LogoutPage),
                   webapp2.Route(r'/unit4/authen/welcome', handler=authen.WelcomePage),
+                  webapp2.Route(r'/unit5/asciichan2', handler=asciichan2.MainPage),
+                  webapp2.Route(r'/unit5/blog<format:(?:/.json)?>', handler=blog_api.Posts),
+                  webapp2.Route(r'/unit5/blog/newpost', handler=blog_api.NewPost),
+                  webapp2.Route(r'/unit5/blog/<post_id:\d+><format:(?:.json)?>', handler=blog_api.Post),
+                  webapp2.Route(r'/unit5/blog/signup', handler=blog_authen.SignupPage),
+                  webapp2.Route(r'/unit5/blog/login', handler=blog_authen.LoginPage),
+                  webapp2.Route(r'/unit5/blog/logout', handler=blog_authen.LogoutPage),
+                  webapp2.Route(r'/unit5/blog/welcome', handler=blog_authen.WelcomePage),
                                ], debug=True)
