@@ -16,10 +16,37 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 APP_PATH = "/unit5/blog"
 CORE_PATH = "/welcome"
 
+
+def users_key(group = 'default'):
+  return db.Key.from_path('users', group)
+
 class User(db.Model):
   username = db.StringProperty(required = True)
-  password_hash = db.StringProperty(required = True)
-  email = db.EmailProperty(required = False)
+  pw_hash = db.StringProperty(required = True)
+  email = db.EmailProperty()
+
+  @classmethod
+  def by_id(cls, uid):
+    return User.get_by_id(uid, parent = users_key())
+
+  @classmethod
+  def by_username(cls, username):
+    u = User.all().filter('username = ', username).get()
+    return u
+
+  @classmethod
+  def register(cls, username, pw, email = None):
+    pw_hash = hashutil.make_pw_hash(username, pw)
+    return User(parent = users_key(),
+                username = username,
+                pw_hash = pw_hash,
+                email = email)
+
+  @classmethod
+  def login(cls, username, pw):
+    u = cls.by_username(username)
+    if u and hashutil.valid_pw(username, pw, u.pw_hash):
+      return u
 
 class Handler(webapp2.RequestHandler):
   def write(self, *a, **kw):
@@ -32,6 +59,28 @@ class Handler(webapp2.RequestHandler):
   def render(self, template, **kw):
     self.write(self.render_str(template, **kw))
 
+  def set_secure_cookie(self, name, val):
+
+    self.response.headers.add_header('Set-Cookie', 
+      '%(name)s=%(val)s' % {'name': name,
+                            'val': hashutil.make_secure_val(val)})
+  def read_secure_cookie(self, name):
+    cookie_str = self.request.cookies.get(name)
+    if cookie_str:
+        val = hashutil.check_secure_val(cookie_str)
+        return val
+  
+  def login(self, user):
+    self.set_secure_cookie('user_id', str(user.key().id()))
+
+  def logout(self):
+    #self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
+    self.response.headers.add_header('Set-Cookie', 'user_id=;')
+
+  def initialize(self, *a, **kw):
+    webapp2.RequestHandler.initialize(self, *a, **kw)
+    uid = self.read_secure_cookie('user_id')
+    self.user = uid and User.by_id(int(uid))
 
 class SignupPage(Handler):
   def render_page(self, username="", err_username="",
@@ -65,10 +114,7 @@ class SignupPage(Handler):
     if not signuputil.is_username_valid(input_username):
       err_username = "Invalid username"
 
-    query = "SELECT * FROM User \
-               WHERE username = '" + output_username + "'"
-    users = db.GqlQuery(query)
-    if users.count() > 0:
+    if User.by_username(output_username):
       err_username = "Username already taken"
     
     if not signuputil.is_password_valid(input_password):
@@ -89,12 +135,12 @@ class SignupPage(Handler):
 
       if output_email == "":
         output_email = None
-      user = User(username = output_username, 
-                  password_hash = hashutil.make_pw_hash(output_username, output_password), 
-                  email=output_email)
+
+      user = User.register(username=output_username, 
+                           pw=output_password,
+                           email=output_email) 
       user.put()
-      user_id = user.key().id()
-      self.response.headers.add_header('Set-Cookie', 'user_id=%s' % hashutil.make_secure_val(str(user_id)))
+      self.login(user)
       self.redirect(APP_PATH + CORE_PATH)
     else:
       self.render_page(output_username, err_username,
@@ -110,6 +156,8 @@ class LoginPage(Handler):
                                username=username, err_username=err_username,
                                password=password, err_password=err_password)
   def get(self):
+    if self.user:
+      self.redirect(APP_PATH + CORE_PATH)
     self.render_page()
 
   def post(self):
@@ -133,16 +181,13 @@ class LoginPage(Handler):
 
     if err_username == "" and \
        err_password == "":
-      query = "SELECT * FROM User \
-               WHERE username = '" + output_username + "'"
-      users = db.GqlQuery(query)
 
       err_signin = "User does not exists or password does not match. Try again."
 
-      if users.count() > 0 and \
-         hashutil.valid_pw(users[0].username, output_password, users[0].password_hash):
-        user_id = users[0].key().id()
-        self.response.headers.add_header('Set-Cookie', 'user_id=%s' % hashutil.make_secure_val(str(user_id)))
+      user = User.login(username=output_username, 
+                        pw=output_password)
+      if user:
+        self.login(user)
         self.redirect(APP_PATH + CORE_PATH)
       else:
         self.render_page(err_signin,
@@ -156,8 +201,7 @@ class LoginPage(Handler):
 
 class LogoutPage(Handler):
   def get(self):
-    self.response.headers.add_header('Set-Cookie', 'user_id=;Path=/')
-    #self.response.headers.add_header('Set-Cookie', 'user_id=;')
+    self.logout()
     self.redirect(APP_PATH + "/signup")
 
 class WelcomePage(Handler):
@@ -165,18 +209,9 @@ class WelcomePage(Handler):
     self.render("welcome.html", username = username)
 
   def get(self):
-    user_id_cookie_str = self.request.cookies.get('user_id')
-
-    username = ""
-    if user_id_cookie_str:
-        user_id = hashutil.check_secure_val(user_id_cookie_str)
-        if user_id:
-            user = User.get_by_id(long(user_id))
-            if user:
-              username = user.username
-    if username == "":
-      self.redirect(APP_PATH + "/signup")
+    if self.user:
+      self.render_page(self.user.username)
     else:
-      self.render_page(username)
+      self.redirect(APP_PATH + "/signup")
 
 
