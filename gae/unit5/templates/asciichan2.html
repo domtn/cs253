@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta chartset="utf-8">
+    <title>/ascii-chan2/</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/asciichan2.css" />
+  </head>
+
+  <body>
+    <h1>/ascii-chan2/</h1>
+
+    {% if all_img_urls %}
+      <img class="all_maps" src="{{all_img_urls}}">
+    {% endif %}
+
+    <form method="post">
+      <label>
+        <div>title</div>
+        <input type="text" name="title" value={{title}}>
+      </label>
+      
+      <label>
+        <div>art</div>
+        <textarea name="art">{{art}}</textarea>
+      </label>
+      <div class="error">{{error}}</div>
+
+      <input type="submit">
+    </form>
+
+    {% for art in arts %}
+      <div class="art">
+        <hr>
+        <div class="art-title">{{art.title}}</div>
+        {% if art.img_url %}
+          <img class="map" src="{{art.img_url}}">
+        {% endif %}
+        <div class="art-body-wrapper">
+          <pre class="art-body">{{art.art}}</pre>
+        </div>
+      </div>
+      
+    {% endfor %}
+
+  </body>
+
+
+</html>
+
