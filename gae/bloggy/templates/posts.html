@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bloggy - posts</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bloggy.css" />
+  </head>
+  <body>
+    {% if link_to_sign_in %}
+      <div class="nav"><a href="{{link_to_sign_in}}">Sign in</a></div>
+    {% endif %}
+
+    {% if link_to_sign_out %}
+      <div class="nav"><a href="{{link_to_sign_out}}">Sign out</a></div>
+    {% endif %}
+
+    {% if link_to_register %}
+      <div class="nav"><a href="{{link_to_register}}">Register</a></div>
+    {% endif %}
+
+    <h1>Bloggy</h1>
+    
+    {% if link_to_new_post %}
+      <div class="nav"><a href="{{link_to_new_post}}">New Post</a></div>
+    {% endif %}
+
+    {% for post in posts %}
+      <div class="post">
+        <div class="post-updated">Last updated: {{post.lastUpdated}}</div>
+        <div class="post-subject">{{post.subject}}</div>
+        <div class="post-content">{{post.content}}</div>
+        <a href="{{post.permalink}}">Permanent Link</a>
+      </div>
+    {% endfor %}
+    <hr>
+  </body>
+</html>
