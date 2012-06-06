@@ -15,3 +15,7 @@ handlers:
   
 - url: /.*
   script: routes.app
+
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
