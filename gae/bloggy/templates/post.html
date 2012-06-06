@@ -18,9 +18,10 @@
       <div class="error">{{error}}</div>
     {% else %}
     <div class="post">
-        <div class="post-updated">Last updated: {{post.last_updated}}</div>
+        <div class="post-created-on">{{post.created_on}}</div>
         <div class="post-subject">{{post.subject}}</div>
         <div class="post-content">{{post.content}}</div>
+        <div class="post-modified-on">Last modified: {{post.last_modified_on}}</div>
         <a href="{{post.permalink}}">Permanent Link</a>
     </div>
     {% endif %}

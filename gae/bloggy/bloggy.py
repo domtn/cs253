@@ -20,7 +20,8 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
-date_format = "%A %B %d %H:%M:%S %Y "
+created_date_format = "%B %d, %Y "
+modified_date_format = "%H:%M %B %d, %Y"
 
 '''
 Base Handler class
@@ -114,7 +115,8 @@ class Posts(Handler):
     decor_posts = []
     for post in posts:
       post.permalink = APP_PATH + CORE_PATH + "/" + str(post.key().id())
-      post.last_updated = post.last_modified.strftime(date_format)
+      post.created_on = post.created.strftime(created_date_format)
+      post.last_modified_on = post.last_modified.strftime(modified_date_format)
       decor_posts.append(post)
 
     if format == "/.json":
@@ -122,8 +124,8 @@ class Posts(Handler):
       for post in decor_posts:
         json_posts.append({ 'subject': post.subject,
                             'content': post.content,
-                            'created': post.created.strftime(date_format),
-                            'last_modified': post.last_updated
+                            'created': post.created_on,
+                            'last_modified': post.last_modified_on
                           })
       self.render_json(json_posts)
     else:
@@ -154,12 +156,13 @@ class Post(Handler):
 
     if post:
       post.permalink = APP_PATH + CORE_PATH + "/" + str(post.key().id())
-      post.last_updated = post.last_modified.strftime(date_format)
+      post.created_on = post.created.strftime(created_date_format)
+      post.last_modified_on = post.last_modified.strftime(modified_date_format)
       if format==".json":
         json_post = ({'subject': post.subject,
                       'content': post.content,
-                      'created': post.created.strftime(date_format),
-                      'last_modified': post.last_updated
+                      'created': post.created_on,
+                      'last_modified': post.last_modified_on
                     })
         self.render_json(json_post)
       else:
