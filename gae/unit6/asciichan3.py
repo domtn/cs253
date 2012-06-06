@@ -6,6 +6,7 @@ import logging
 from xml.dom import minidom
 from string import letters
 
+
 from google.appengine.ext import db
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
