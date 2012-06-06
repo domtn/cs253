@@ -114,7 +114,7 @@ class Posts(Handler):
     decor_posts = []
     for post in posts:
       post.permalink = APP_PATH + CORE_PATH + "/" + str(post.key().id())
-      post.lastUpdated = post.last_modified.strftime(date_format)
+      post.last_updated = post.last_modified.strftime(date_format)
       decor_posts.append(post)
 
     if format == "/.json":
@@ -123,7 +123,7 @@ class Posts(Handler):
         json_posts.append({ 'subject': post.subject,
                             'content': post.content,
                             'created': post.created.strftime(date_format),
-                            'last_modified': post.last_modified.strftime(date_format)
+                            'last_modified': post.last_updated
                           })
       self.render_json(json_posts)
     else:
@@ -154,12 +154,12 @@ class Post(Handler):
 
     if post:
       post.permalink = APP_PATH + CORE_PATH + "/" + str(post.key().id())
-      post.lastUpdated = post.created.strftime(format)
+      post.last_updated = post.last_modified.strftime(date_format)
       if format==".json":
         json_post = ({'subject': post.subject,
                       'content': post.content,
                       'created': post.created.strftime(date_format),
-                      'last_modified': post.last_modified.strftime(date_format)
+                      'last_modified': post.last_updated
                     })
         self.render_json(json_post)
       else:
