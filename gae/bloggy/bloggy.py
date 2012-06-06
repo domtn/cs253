@@ -203,11 +203,11 @@ class NewPost(Handler):
 
 class SignupPage(Handler):
   def render_page(self, username="", err_username="",
-                  password="", err_password="",
+                  password="", err_pwd="",
                   verify="", err_verify="", 
                   email="", err_email=""):
     self.render("signup.html", username=username, err_username=err_username,
-                               password=password, err_password=err_password,
+                               password=password, err_pwd=err_pwd,
                                verify=verify, err_verify=err_verify,
                                email=email, err_email=err_email,
                                link_to_sign_in=APP_PATH + SIGN_IN_PATH)
@@ -224,57 +224,64 @@ class SignupPage(Handler):
     input_email = self.request.get('email')
 
     err_username = ""
-    err_password = ""
+    err_pwd = ""
     err_verify = ""
     err_email = ""
 
-    output_username = html_util.escape_html(input_username)
-    output_password = input_password
-    output_verify = input_verify
-    output_email = html_util.escape_html(input_email)
+    validated_username = html_util.escape_html(input_username)
+    validated_pwd = input_password
+    validated_verify = input_verify
+    validated_email = html_util.escape_html(input_email)
 
+    # Check if username contains valid characters
     if not signuputil.is_username_valid(input_username):
       err_username = "Invalid username"
 
-    if User.by_username(output_username):
+    # Check if username has been taken by someone else
+    if User.by_username(validated_username):
       err_username = "Username already taken"
     
+    # Check if password contains valid characters
     if not signuputil.is_password_valid(input_password):
-      err_password = "Invalid password"
-      output_password = ""
-      output_verify = ""
+      err_pwd = "Invalid password"
+      validated_pwd = ""
+      validated_verify = ""
 
+    # Check if input password is same as input_verify
     if input_password != input_verify:
       err_verify = "Does not match the password you entered"
 
+    # Check if username is valid
     if not signuputil.is_email_valid(input_email):
-      if input_email == "":
-        output_email = None
       err_email = "Invalid email"
 
+    # If email is empty, make it empty
+    if input_email.strip() == "":
+      validated_email = None
+
     if err_username == "" and \
-       err_password == "" and \
+       err_pwd == "" and \
        err_verify == "" and \
        err_email == "":
-      user = User.register(username=output_username, 
-                           pw=output_password,
-                           email=output_email) 
+      user = User.register(username=validated_username, 
+                           pw=validated_pwd,
+                           email=validated_email) 
       user.put()
       self.login(user)
       self.redirect(APP_PATH + CORE_PATH)
     else:
-      self.render_page(output_username, err_username,
-                      output_password, err_password,
-                      output_verify, err_verify,
-                      output_email, err_email)
+      self.render_page(validated_username, err_username,
+                      validated_pwd, err_pwd,
+                      validated_verify, err_verify,
+                      validated_email, err_email)
 
 class LoginPage(Handler):
   def render_page(self, err_signin="", 
                     username="", err_username="", 
-                    password="", err_password=""):
+                    password="", err_pwd=""):
     self.render("signin.html", err_signin = err_signin, 
                                username=username, err_username=err_username,
-                               password=password, err_password=err_password, 
+                               password=password, err_pwd=err_pwd, 
                                link_to_register=APP_PATH + SIGN_UP_PATH)
   def get(self):
     if self.user:
@@ -286,37 +293,37 @@ class LoginPage(Handler):
     input_password = self.request.get('password')
 
     err_username = ""
-    err_password = ""
+    err_pwd = ""
     err_signin = ""
 
-    output_username = html_util.escape_html(input_username)
-    output_password = input_password
+    validated_username = html_util.escape_html(input_username)
+    validated_pwd = input_password
 
     if not signuputil.is_username_valid(input_username):
       err_username = "Invalid username"
     
     if not signuputil.is_password_valid(input_password):
-      err_password = "Invalid password"
-      output_password = ""
+      err_pwd = "Invalid password"
+      validated_pwd = ""
 
     if err_username == "" and \
-       err_password == "":
+       err_pwd == "":
 
       err_signin = "User does not exists or password does not match. Try again."
 
-      user = User.login(username=output_username, 
-                        pw=output_password)
+      user = User.login(username=validated_username, 
+                        pw=validated_pwd)
       if user:
         self.login(user)
         self.redirect(APP_PATH + CORE_PATH)
       else:
         self.render_page(err_signin,
-                     output_username, err_username,
-                     output_password, err_password)
+                     validated_username, err_username,
+                     validated_pwd, err_pwd)
     else:
       self.render_page(err_signin,
-                     output_username, err_username,
-                     output_password, err_password)
+                     validated_username, err_username,
+                     validated_pwd, err_pwd)
       
 
 class LogoutPage(Handler):
