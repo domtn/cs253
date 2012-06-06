@@ -7,17 +7,21 @@
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/bloggy.css" />
   </head>
   <body>
-    {% if link_to_sign_in %}
-      <div class="nav"><a href="{{link_to_sign_in}}">Sign in</a></div>
-    {% endif %}
+    <div class="nav">
+      <ul>
+      {% if link_to_sign_in %}
+        <li><a href="{{link_to_sign_in}}">Sign in</a></li>
+      {% endif %}
 
-    {% if link_to_sign_out %}
-      <div class="nav"><a href="{{link_to_sign_out}}">Sign out</a></div>
-    {% endif %}
+      {% if link_to_sign_out %}
+        <li><a href="{{link_to_sign_out}}">Sign out</a></li>
+      {% endif %}
 
-    {% if link_to_register %}
-      <div class="nav"><a href="{{link_to_register}}">Register</a></div>
-    {% endif %}
+      {% if link_to_register %}
+        <li><a href="{{link_to_register}}">Register</a></li>
+      {% endif %}
+      </ul>
+    </div>
 
     <h1>Bloggy</h1>
 

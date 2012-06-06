@@ -4,12 +4,16 @@
   <head>
     <meta charset="utf-8">
     <title>Authen - Sign in</title>
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/authen.css" />
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/bloggy.css" />
   </head>
   <body>
-    {% if link_to_register %}
-      <div class="nav"><a href="{{link_to_register}}">Register</a></div>
-    {% endif %}
+    <div class="nav">
+      <ul>
+        {% if link_to_register %}
+          <li><a href="{{link_to_register}}">Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
 
     <h1>Login</h1>
     <form method="post">
