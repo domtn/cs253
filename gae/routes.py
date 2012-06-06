@@ -10,6 +10,7 @@ from unit5 import asciichan2
 from unit5 import blog_api
 from unit5 import blog_authen
 from bloggy import bloggy
+from unit6 import asciichan3
 
 form="""
 <h2>Welcome to Web Application Engineering</h2>
@@ -52,6 +53,7 @@ app = webapp2.WSGIApplication([
                   webapp2.Route(r'/unit5/blog/login', handler=blog_authen.LoginPage),
                   webapp2.Route(r'/unit5/blog/logout', handler=blog_authen.LogoutPage),
                   webapp2.Route(r'/unit5/blog/welcome', handler=blog_authen.WelcomePage),
+                  webapp2.Route(r'/unit6/asciichan3', handler=asciichan3.MainPage),
                   webapp2.Route(r'/bloggy/blog<format:(?:/.json)?>', handler=bloggy.Posts),
                   webapp2.Route(r'/bloggy/blog/newpost', handler=bloggy.NewPost),
                   webapp2.Route(r'/bloggy/blog/<post_id:\d+><format:(?:.json)?>', handler=bloggy.Post),
