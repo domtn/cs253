@@ -126,9 +126,10 @@ class SignupPage(Handler):
       err_verify = "Does not match the password you entered"
 
     if not signuputil.is_email_valid(input_email):
-      if input_email == "":
-        output_email = None
       err_email = "Invalid email"
+
+    if input_email == "":
+      output_email = None
 
     if err_username == "" and \
        err_password == "" and \
