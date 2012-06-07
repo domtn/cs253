@@ -89,7 +89,7 @@ input[type=text], input[type=password] {
 }
 
 .register input[type=submit] {
-  font-size: 5em;
+  font-size: 1em;
   margin-top:10px;
   margin-bottom:10px;
   margin-left:225px;
@@ -97,7 +97,7 @@ input[type=text], input[type=password] {
 }
 
 .login input[type=submit] {
-  font-size: 5em;
+  font-size: 1em;
   margin-top:10px;
   margin-bottom:10px;
   margin-left:225px;
@@ -111,7 +111,8 @@ input[type=text], input[type=password] {
 }
 
 .new-post input[type=submit]{
-  font-size: 24px;
+  font-size: 1em;
+  width:80px;
 }
 
 
