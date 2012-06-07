@@ -33,11 +33,19 @@ hr {
   width:60%;
 }
 
-.post-updated {
+.post-created-on, .post-modified-on {
   font-style: italic;
   font-size: 14px;
-  float: right;
   color: #A9A9A9;
+}
+
+.post-created-on {
+  float: right;
+}
+
+.post-modified-on{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .post-content {

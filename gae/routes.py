@@ -49,6 +49,7 @@ app = webapp2.WSGIApplication([
                   webapp2.Route(r'/unit5/blog<format:(?:/.json)?>', handler=blog_api.Posts),
                   webapp2.Route(r'/unit5/blog/newpost', handler=blog_api.NewPost),
                   webapp2.Route(r'/unit5/blog/<post_id:\d+><format:(?:.json)?>', handler=blog_api.Post),
+                  webapp2.Route(r'/unit5/blog/flush', handler=blog_api.Flush),
                   webapp2.Route(r'/unit5/blog/signup', handler=blog_authen.SignupPage),
                   webapp2.Route(r'/unit5/blog/login', handler=blog_authen.LoginPage),
                   webapp2.Route(r'/unit5/blog/logout', handler=blog_authen.LogoutPage),
