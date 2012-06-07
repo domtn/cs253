@@ -25,9 +25,13 @@
 
     <h1>Bloggy</h1>
 
-    {% if link_to_new_post %}
-      <div class="nav"><a href="{{link_to_new_post}}">New Post</a></div>
-    {% endif %}
+    <div class="app-nav">
+      <ul>
+        {% if link_to_new_post %}
+          <li><a href="{{link_to_new_post}}">New Post</a></li>
+        {% endif %}
+      </ul>
+    </div>
 
     {% for post in posts %}
       <div class="post">

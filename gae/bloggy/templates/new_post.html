@@ -8,23 +8,30 @@
   </head>
   <body>
     <h1>New Post</h1>
-    {% if link_to_posts %}
-      <div class="nav"><a href="{{link_to_posts}}">All Posts</a></div>
-    {% endif %}
-    <form class="new-post" method="post">
-      <label>
-        <div>subject</div>
-        <input  type="text" name="subject" value={{subject}}>
-      </label>
-      
-      <label>
-        <div>content</div>
-        <textarea name="content">{{content}}</textarea>
-      </label>
-      <div class="error">{{error}}</div>
+    <div class="app-nav">
+      <ul>
+        {% if link_to_posts %}
+          <li><a href="{{link_to_posts}}">All Posts</a></li>
+        {% endif %}
+      </ul>
+    </div>
 
-      <input type="submit">
-    </form>
+    <div class="new-post">
+      <form method="post">
+        <label>
+          <div>subject</div>
+          <input  type="text" name="subject" value={{subject}}>
+        </label>
+        
+        <label>
+          <div>content</div>
+          <textarea name="content">{{content}}</textarea>
+        </label>
+        <div class="error">{{error}}</div>
+
+        <input type="submit">
+      </form>
+    <div> 
   </body>
 
 

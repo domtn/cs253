@@ -16,6 +16,14 @@ body{
   display: inline;
 }
 
+.app-nav ul li{
+  list-style: none;
+
+}
+
+.app-nav ul{
+  padding-left: 0px;
+}
 
 .error{
   margin-top: 20px;
@@ -65,34 +73,6 @@ label {
   font-size: 20px;
 }
 
-input[type=text].new-post {
-  width: 400px;
-  font-size: 20px;
-  padding: 2px;
-}
-
-textarea {
-  width: 400px;
-  height: 200px;
-  font-size: 17px;
-  font-family: monospace;
-}
-
-input[type=submit].new-post{
-  font-size: 24px;
-}
-
-
-.error{
-  margin-top: 20px;
-  color: red;
-  margin-bottom: 20px;
-}
-
-label {
-  font-size: 20px;
-}
-
 label .title {
   width:200px;
   margin-right:20px;
@@ -108,10 +88,36 @@ input[type=text], input[type=password] {
   margin-bottom:10px;
 }
 
-input[type=submit] {
+.register input[type=submit] {
   font-size: 5em;
   margin-top:10px;
   margin-bottom:10px;
   margin-left:225px;
   width:80px;
+}
+
+.login input[type=submit] {
+  font-size: 5em;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-left:225px;
+  width:80px;
+}
+
+.new-post input[type=text] {
+  width: 400px;
+  font-size: 20px;
+  padding: 2px;
+}
+
+.new-post input[type=submit]{
+  font-size: 24px;
+}
+
+
+.new-post textarea {
+  width: 400px;
+  height: 200px;
+  font-size: 17px;
+  font-family: monospace;
 }

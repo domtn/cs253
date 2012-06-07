@@ -4,40 +4,47 @@
   <head>
     <meta charset="utf-8">
     <title>Authen - Sign up</title>
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/authen.css" />
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/bloggy.css" />
   </head>
   <body>
-    {% if link_to_sign_in %}
-      <div class="nav"><a href="{{link_to_sign_in}}">Sign in</a></div>
-    {% endif %}
+    <div class="nav">
+      <ul>
+      {% if link_to_sign_in %}
+        <li><a href="{{link_to_sign_in}}">Sign in</a></li>
+      {% endif %}
+      </ul>
+    </div>
     <h1>Registration</h1>
-    <form method="post">
-    <label>
-      <span class="title">Username</span>
-      <input type="text" name="username" value="{{username}}">
-      <span class="error">{{err_username}}</span>
-    </label>
-    <br>
-    <label>
-      <span class="title">Password</span>
-      <input type="password" name="password" value="{{password}}">
-      <span class="error">{{err_password}}</span>
-    </label>
-    <br>  
-    <label>
-      <span class="title">Verify Password</span>
-      <input type="password" name="verify" value="{{verify}}">
-      <span class="error">{{err_verify}}</span>
-    </label>
-    <br>
-    <label>
-      <span class="title">Email (optional)</span>
-      <input type="text" name="email" value="{{email}}">
-      <span class="error">{{err_email}}</span>
-    </label>
-  
-  <br>
-  <input type="submit">
-</form>
+
+    <div class="register">
+      <form method="post">
+        <label>
+          <span class="title">Username</span>
+          <input type="text" name="username" value="{{username}}">
+          <span class="error">{{err_username}}</span>
+        </label>
+        <br>
+        <label>
+          <span class="title">Password</span>
+          <input type="password" name="password" value="{{password}}">
+          <span class="error">{{err_password}}</span>
+        </label>
+        <br>  
+        <label>
+          <span class="title">Verify Password</span>
+          <input type="password" name="verify" value="{{verify}}">
+          <span class="error">{{err_verify}}</span>
+        </label>
+        <br>
+        <label>
+          <span class="title">Email (optional)</span>
+          <input type="text" name="email" value="{{email}}">
+          <span class="error">{{err_email}}</span>
+        </label>
+      
+        <br>
+        <input type="submit">
+      </form>
+    </div>
   </body>
 </html>

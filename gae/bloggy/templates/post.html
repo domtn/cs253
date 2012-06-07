@@ -9,9 +9,13 @@
   <body>
     <h1>Blog</h1>
 
-    {% if link_to_posts %}
-      <div class="nav"><a href="{{link_to_posts}}">All Posts</a></div>
-    {% endif %}
+    <div class="app-nav">
+      <ul>
+        {% if link_to_posts %}
+          <li><a href="{{link_to_posts}}">All Posts</a></li>
+        {% endif %}
+      </ul>
+    </div>
     
     
     {% if error %}
